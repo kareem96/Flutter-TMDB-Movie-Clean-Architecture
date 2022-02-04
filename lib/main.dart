@@ -3,8 +3,10 @@ import 'package:app_clean_architecture_flutter/common/utils.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/about_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/home_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/search_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_detail_notifier.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_list_notifier.dart';
+import 'package:app_clean_architecture_flutter/presentation/provider/movie_search_notifier.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/popular_movies_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieDetailNotifier>(),
+        ),
+        ChangeNotifierProvider(
+            create: (_) => di.locator<MovieSearchNotifier>(),
         )
       ],
       child: MaterialApp(
@@ -52,6 +57,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => MovieDetailPage(id: id), settings: settings);
             case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => AboutPage());
+            case SearchPage.routeName:
+              return MaterialPageRoute(builder: (_) => SearchPage());
             default:
               return MaterialPageRoute(builder: (_){
                 return const Scaffold(

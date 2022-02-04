@@ -6,6 +6,7 @@ import 'package:app_clean_architecture_flutter/common/state_enum.dart';
 import 'package:app_clean_architecture_flutter/domain/entities/movie.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/about_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/search_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_list_notifier.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: const Text('Nonton Kuy'),
         actions: [
           IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Navigator.pushNamed(context, SearchPage.routeName);
+              },
               icon: const Icon(Icons.search)),
         ],
       ),

@@ -10,8 +10,10 @@ import 'package:app_clean_architecture_flutter/domain/usecase/get_detail_movie.d
 import 'package:app_clean_architecture_flutter/domain/usecase/get_now_playing_movies.dart';
 import 'package:app_clean_architecture_flutter/domain/usecase/get_popular_movies.dart';
 import 'package:app_clean_architecture_flutter/domain/usecase/get_recommended_movie.dart';
+import 'package:app_clean_architecture_flutter/domain/usecase/search_movies.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_detail_notifier.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_list_notifier.dart';
+import 'package:app_clean_architecture_flutter/presentation/provider/movie_search_notifier.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/popular_movies_notifier.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -30,6 +32,8 @@ void init(){
     getMovieRecommendations: locator(),
   ));
 
+  locator.registerFactory(() => MovieSearchNotifier(searchMovies: locator()));
+
   locator.registerFactory(() => PopularMoviesNotifier(locator()));
 
 
@@ -38,6 +42,7 @@ void init(){
   locator.registerLazySingleton(() => GetPopularMovies(locator()));
   locator.registerLazySingleton(() => GetMovieDetail(locator()));
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
+  locator.registerLazySingleton(() => SearchMovies(locator()));
 
   ///repository
   locator.registerLazySingleton<MovieRepository>(() =>

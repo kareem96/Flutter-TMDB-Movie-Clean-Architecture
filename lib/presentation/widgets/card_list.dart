@@ -25,6 +25,7 @@ class CardList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(movie.title ?? '-', maxLines: 1, overflow: TextOverflow.ellipsis, style: Heading6,),
+                    Text(movie.overview ?? '-', maxLines: 2, overflow: TextOverflow.ellipsis,),
                   ],
                 ),
               ),
