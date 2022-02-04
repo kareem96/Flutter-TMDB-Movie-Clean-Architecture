@@ -4,6 +4,7 @@
 import 'package:app_clean_architecture_flutter/common/constant.dart';
 import 'package:app_clean_architecture_flutter/common/state_enum.dart';
 import 'package:app_clean_architecture_flutter/domain/entities/movie.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/about_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_list_notifier.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,6 +32,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children:  [
+            const UserAccountsDrawerHeader(
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.indigo,
+              ),
+                accountName: Text('Nonton Kuy'),
+                accountEmail: Text('')
+            ),
+            ListTile(
+              leading: const Icon(Icons.movie_outlined),
+              title: const Text('Movies'),
+              onTap: () => {Navigator.pop(context)},
+            ),
+            ListTile(
+              leading: Icon(Icons.save_alt_outlined),
+              title: const Text('Watchlist'),
+              onTap: (){},
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outlined),
+              title: const Text('About'),
+              onTap: (){
+                Navigator.pushNamed(context, AboutPage.routeName);
+              },
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(title: const Text('Nonton Kuy'),
         actions: [
           IconButton(

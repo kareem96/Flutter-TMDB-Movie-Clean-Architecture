@@ -1,5 +1,6 @@
 import 'package:app_clean_architecture_flutter/common/constant.dart';
 import 'package:app_clean_architecture_flutter/common/utils.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/about_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/home_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_detail_notifier.dart';
@@ -49,6 +50,8 @@ class MyApp extends StatelessWidget {
             case MovieDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(builder: (_) => MovieDetailPage(id: id), settings: settings);
+            case AboutPage.routeName:
+              return MaterialPageRoute(builder: (_) => AboutPage());
             default:
               return MaterialPageRoute(builder: (_){
                 return const Scaffold(
