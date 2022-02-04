@@ -3,6 +3,8 @@
 
 
 
+import 'package:app_clean_architecture_flutter/data/datasources/db/database_helper.dart';
+import 'package:app_clean_architecture_flutter/data/datasources/local_data_source.dart';
 import 'package:app_clean_architecture_flutter/data/datasources/remote_data_source.dart';
 import 'package:app_clean_architecture_flutter/data/repositories/movie_repository_impl.dart';
 import 'package:app_clean_architecture_flutter/domain/repositories/movie_respository.dart';
@@ -44,15 +46,25 @@ void init(){
   locator.registerLazySingleton(() => GetMovieRecommendations(locator()));
   locator.registerLazySingleton(() => SearchMovies(locator()));
 
+
+
   ///repository
   locator.registerLazySingleton<MovieRepository>(() =>
-      MovieRepositoryImpl(remoteDataSource: locator())
+      MovieRepositoryImpl(
+        remoteDataSource: locator(),
+        localDataSource: locator()
+      )
   );
 
 
   ///data source
   locator.registerLazySingleton<MovieRemoteDataSource>(
           () => MovieRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingleton<MovieLocalDataSource>(
+          () => MovieLocalDataSourceImpl(databaseHelper: locator()));
+
+  ///helper
+  locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   ///external
   locator.registerLazySingleton(() => http.Client());
