@@ -6,7 +6,9 @@ import 'package:app_clean_architecture_flutter/common/state_enum.dart';
 import 'package:app_clean_architecture_flutter/domain/entities/movie.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/about_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/popular_movies_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/pages/search_page.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/watchlist_page.dart';
 import 'package:app_clean_architecture_flutter/presentation/provider/movie_list_notifier.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,8 @@ class _HomePageState extends State<HomePage> {
           children:  [
             const UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.indigo,
+                // backgroundColor: Colors.indigo,
+                backgroundImage: AssetImage('assets/ui.png'),
               ),
                 accountName: Text('Nonton Kuy'),
                 accountEmail: Text('')
@@ -51,7 +54,9 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(Icons.save_alt_outlined),
               title: const Text('Watchlist'),
-              onTap: (){},
+              onTap: (){
+                Navigator.pushNamed(context, WatchlistPage.routeName);
+              },
             ),
             ListTile(
               leading: const Icon(Icons.info_outlined),
@@ -91,7 +96,9 @@ class _HomePageState extends State<HomePage> {
               }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () {}
+                onTap: () {
+                  Navigator.pushNamed(context, PopularMoviesPage.routeName);
+                }
               ),
               Consumer<MovieListNotifier>(
                 builder: (context, data, child){

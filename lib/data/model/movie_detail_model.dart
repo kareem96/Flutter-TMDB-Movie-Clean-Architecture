@@ -39,7 +39,7 @@ class MovieDetailModel extends Equatable{
   String? backdropPath;
   int budget;
   List<GenreModel> genres;
-  String homepage;
+  String? homepage;
   int id;
   String? imdbId;
   String originalLanguage;
@@ -49,7 +49,7 @@ class MovieDetailModel extends Equatable{
   String posterPath;
   String releaseDate;
   int revenue;
-  int runtime;
+  int? runtime;
   String status;
   String tagline;
   String title;

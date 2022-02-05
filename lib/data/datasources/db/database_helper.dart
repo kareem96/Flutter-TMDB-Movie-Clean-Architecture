@@ -45,12 +45,12 @@ class DatabaseHelper{
 
   Future<int?> insertWatchlist(MovieTable movie) async{
     final db = await database;
-    return await db?.insert(_tblWatchlist, movie.toJson());
+    return await db!.insert(_tblWatchlist, movie.toJson());
   }
 
   Future<int?> removeWatchlist(MovieTable movie) async{
     final db = await database;
-    return await db?.delete(
+    return await db!.delete(
       _tblWatchlist,
       where: 'id = ?',
       whereArgs: [movie.id],
@@ -59,13 +59,13 @@ class DatabaseHelper{
 
   Future<Map<String, dynamic>?> getMovieById(int id) async{
     final db = await database;
-    final results = await db?.query(
+    final results = await db!.query(
       _tblWatchlist,
       where: 'id = ?',
       whereArgs: [id]
     );
-    if(results?.isNotEmpty != null){
-      return results?.first;
+    if(results.isNotEmpty){
+      return results.first;
     }else{
       return null;
     }

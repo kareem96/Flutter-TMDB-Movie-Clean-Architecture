@@ -27,8 +27,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
+      Provider.of<MovieDetailNotifier>(context, listen: false).fetchMovieDetail(widget.id);
+      Provider.of<MovieDetailNotifier>(context, listen: false).loadWatchlistStatus(widget.id);
     });
   }
 
@@ -101,17 +101,36 @@ class ContentDetails extends StatelessWidget {
                           children: [
                             Text(movie.title),
                             ElevatedButton(
-                                onPressed: (){},
+                                onPressed: ()async{
+                                  if(!isAddedWatchlist){
+                                    await Provider.of<MovieDetailNotifier>(context, listen: false).addWatchlist(movie);
+                                  }else{
+                                    await Provider.of<MovieDetailNotifier>(context, listen: false).removeFromWatchlist(movie);
+                                  }
+                                  final message = Provider.of<MovieDetailNotifier>(context, listen: false).watchlistMessage;
+                                  if(message == MovieDetailNotifier.watchlistAddSuccessMessage || message == MovieDetailNotifier.watchlistRemoveSuccessMessage){
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+                                  }else{
+                                    showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return AlertDialog(
+                                            content: Text(message),
+                                          );
+                                        }
+                                    );
+                                  }
+                                },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    isAddedWatchlist ? Icon(Icons.check) : Icon(Icons.add),
-                                    Text('Watchlist')
+                                    isAddedWatchlist ? const Icon(Icons.check) : const Icon(Icons.add),
+                                    const Text('Watchlist')
                                   ],
                                 )
                             ),
                             Text(_showGenres(movie.genres)),
-                            Text(_showDuration(movie.runtime)),
+                            Text(_showDuration(movie.runtime!)),
                             Row(
                               children: [
                                 RatingBarIndicator(
@@ -145,9 +164,16 @@ class ContentDetails extends StatelessWidget {
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
-                                            onTap: (){},
+                                            onTap: (){
+                                              // Navigator.pushNamed(context, MovieDetailPage.routeName);
+                                              Navigator.pushReplacementNamed(
+                                                context,
+                                                MovieDetailPage.routeName,
+                                                arguments: movie.id
+                                              );
+                                            },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(const Radius.circular(8)),
+                                              borderRadius: const BorderRadius.all(Radius.circular(8)),
                                               child: CachedNetworkImage(
                                                 imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) => const Center(

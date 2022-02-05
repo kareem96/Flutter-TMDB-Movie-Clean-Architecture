@@ -2,6 +2,7 @@
 
 import 'package:app_clean_architecture_flutter/common/constant.dart';
 import 'package:app_clean_architecture_flutter/domain/entities/movie.dart';
+import 'package:app_clean_architecture_flutter/presentation/pages/movie_detail_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,9 @@ class CardList extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          Navigator.pushNamed(context, MovieDetailPage.routeName, arguments: movie.id);
+        },
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [

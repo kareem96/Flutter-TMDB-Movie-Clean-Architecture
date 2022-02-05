@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
                   color: Colors.indigo,
                   child: const Center(
                     child: CircleAvatar(
-                      backgroundColor: Colors.grey,
+                      backgroundImage: AssetImage('assets/ui.png'),
                     ),
                   ),
                 ),
